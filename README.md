@@ -1,3 +1,4 @@
+**Live demo:** https://dxvibe-ten.vercel.app
 # DxVibe 🎵
 
 **Your music, your vibe.** DxVibe is a music player web app built with React and TypeScript. Search real songs online, build a playlist, play them with a live visualizer, and generate mood-based mixes. It runs entirely in the browser with no backend.
