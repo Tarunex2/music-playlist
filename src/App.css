@@ -1,0 +1,337 @@
+:root {
+  color-scheme: dark;
+  --ink: #ffffff; --paper: #0a0a0a; --card: #141414;
+  --accent: #1ed760; --danger: #ff5c6c; --line: #2a2a2a; --muted: #a0a0a0;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+.app { max-width: 1200px; margin: 0 auto; padding: 20px 16px 84px; }
+h1 {
+  font-size: 1.9rem; font-weight: 800; letter-spacing: -1px; margin: 0;
+  background: linear-gradient(90deg, var(--accent), #9dffc4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+h2 { font-size: 1rem; margin: 0 0 8px; }
+.card h2:not(:first-child) { margin-top: 14px; }
+
+/* header */
+.brand { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+.brand-main { display: flex; align-items: center; gap: 14px; }
+.logo { width: 48px; height: 48px; flex: none; }
+.tagline { margin: 0; color: var(--muted); font-size: .9rem; }
+
+/* page layout */
+.layout { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 12px; align-items: start; }
+.side, .main { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px; box-shadow: 0 4px 16px rgba(0, 0, 0, .25); }
+.form { display: flex; flex-direction: column; gap: 8px; }
+.two { display: grid; grid-template-columns: 1fr 90px; gap: 8px; }
+.row { display: flex; justify-content: space-between; }
+
+/* form controls */
+input, select { padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; font: inherit; background: var(--paper); color: var(--ink); }
+input[type="range"] { padding: 0; border: 0; background: transparent; }
+button { padding: 8px 14px; border: 0; border-radius: 6px; background: var(--accent); color: #000; font: inherit; cursor: pointer; }
+button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+button.ghost[aria-pressed="true"] { color: var(--danger); border-color: var(--danger); }
+button:hover:not(:disabled) { filter: brightness(1.15); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button svg { display: block; }
+input[type="file"]::file-selector-button {
+  margin-right: 10px; padding: 6px 12px; border: 0; border-radius: 6px;
+  background: var(--accent); color: #000; cursor: pointer;
+}
+.muted { color: var(--muted); font-size: .85rem; margin: 0; }
+.error { color: var(--danger); margin: 0; font-size: .9rem; }
+.toolbar { display: grid; grid-template-columns: 1fr 140px 150px; gap: 8px; }
+.check { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; font-size: .9rem; }
+.file { display: flex; flex-direction: column; gap: 6px; font-size: .85rem; color: var(--muted); }
+.mixrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.mixrow input[type="number"] { width: 70px; }
+
+/* song list */
+.list { list-style: none; margin: 0; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+.list li {
+  display: grid; grid-template-columns: 36px 44px minmax(0, 1fr) auto auto auto auto auto;
+  gap: 10px; align-items: center; padding: 8px 10px;
+  border: 1px solid var(--line); border-radius: 10px; transition: background .15s;
+}
+.list li:hover { background: rgba(255, 255, 255, .04); }
+.list li.active { background: rgba(30, 215, 96, .12); border-color: var(--accent); }
+.list li.active strong { color: var(--accent); }
+.cover { width: 44px; height: 44px; border-radius: 8px; display: grid; place-items: center; font-weight: 800; font-size: 1.1rem; color: #fff; }
+.info { min-width: 0; }
+.info strong, .info .muted { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tags { display: flex; gap: 6px; }
+.tag { padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); font-size: .75rem; white-space: nowrap; }
+.dur { min-width: 38px; text-align: right; }
+.play { width: 36px; height: 36px; padding: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+.sq { width: 36px; height: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+.attach {
+  width: 36px; height: 36px; display: grid; place-items: center; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 6px; color: var(--muted);
+}
+.attach.has { color: var(--accent); border-color: var(--accent); }
+.attach:hover { color: var(--ink); }
+.attach:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* stats */
+.statrow { display: flex; gap: 32px; margin-bottom: 10px; }
+.big { font-size: 1.5rem; font-weight: 700; margin: 0; }
+.bar { display: grid; grid-template-columns: 80px 1fr 60px; gap: 8px; align-items: center; font-size: .85rem; margin-top: 6px; }
+.track { background: var(--paper); border-radius: 4px; height: 8px; overflow: hidden; }
+.fill { background: var(--accent); height: 100%; }
+
+/* bottom player bar (one slim row) */
+.player-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  display: grid; grid-template-columns: minmax(0, 280px) auto minmax(120px, 1fr) 110px 110px;
+  align-items: center; gap: 16px; padding: 8px 20px;
+  background: #000; border-top: 1px solid var(--line);
+}
+.np { display: flex; flex-direction: column; min-width: 0; }
+.np strong, .np span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-bar .controls { display: flex; align-items: center; gap: 8px; margin: 0; }
+.icon-btn { width: 36px; height: 36px; padding: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+.icon-btn.main { width: 40px; height: 40px; }
+.seekrow { display: grid; grid-template-columns: 38px 1fr 38px; gap: 8px; align-items: center; }
+.seek { width: 100%; margin: 0; accent-color: var(--accent); }
+.vol { display: flex; align-items: center; gap: 6px; }
+.vol svg { color: var(--muted); flex: none; }
+.vol input { flex: 1; min-width: 0; accent-color: var(--accent); }
+.player-bar .viz { width: 100%; height: 32px; margin: 0; border-radius: 6px; background: var(--paper); }
+
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+  .toolbar { grid-template-columns: 1fr; }
+  .brand { flex-wrap: wrap; }
+  .list li { grid-template-columns: 36px 44px minmax(0, 1fr) auto auto auto; }
+  .tags, .dur { display: none; }
+  .player-bar { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; padding: 8px 12px; }
+  .player-bar .seekrow { grid-column: 1 / -1; }
+  .vol, .player-bar .viz { display: none; }
+  .app { padding-bottom: 120px; }
+}
+
+/* ===== UI polish (paste at the end of App.css) ===== */
+:root { --radius: 14px; }
+* { scrollbar-width: thin; scrollbar-color: #333 transparent; }
+
+/* soft colored glow behind the page */
+body {
+  background:
+    radial-gradient(900px 420px at 12% -10%, rgba(30, 215, 96, .15), transparent 60%),
+    radial-gradient(700px 400px at 100% 0%, rgba(120, 80, 255, .10), transparent 60%),
+    var(--paper);
+  background-attachment: fixed;
+}
+.logo { filter: drop-shadow(0 6px 16px rgba(30, 215, 96, .35)); }
+
+/* cards */
+.card {
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #181818, #121212);
+  transition: border-color .2s;
+}
+.card:hover { border-color: #3a3a3a; }
+
+/* buttons and inputs */
+button { font-weight: 600; transition: transform .12s, filter .15s; }
+button:active:not(:disabled) { transform: scale(.96); }
+.play:hover:not(:disabled) { transform: scale(1.1); }
+input, select { transition: border-color .15s, box-shadow .15s; }
+input:hover, select:hover { border-color: #444; }
+input:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(30, 215, 96, .18);
+}
+
+/* song rows */
+.list li {
+  border-color: transparent;
+  background: rgba(255, 255, 255, .025);
+  animation: rowIn .25s ease both;
+}
+.list li:hover { background: rgba(255, 255, 255, .07); border-color: var(--line); }
+.list li.active {
+  background: rgba(30, 215, 96, .12);
+  border-color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.cover { box-shadow: 0 4px 12px rgba(0, 0, 0, .45); object-fit: cover; }
+.tag { transition: background .15s, border-color .15s; }
+.tag:hover { background: rgba(255, 255, 255, .1); border-color: var(--accent); }
+@keyframes rowIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* player bar: frosted glass, and a softer visualizer box when idle */
+.player-bar {
+  background: rgba(10, 10, 10, .85);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+.player-bar .viz { background: rgba(255, 255, 255, .04); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ===== Stronger hover effects ===== */
+
+/* "both" kept the row's end state locked in, which blocks transform on hover. "backwards" fixes that. */
+.list li {
+  animation: rowIn .25s ease backwards;
+  transition: background .15s, border-color .15s, transform .15s, box-shadow .15s;
+}
+.list li:hover {
+  background: rgba(30, 215, 96, .10);
+  border-color: rgba(30, 215, 96, .45);
+  transform: translateX(4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+}
+.list li.active:hover { background: rgba(30, 215, 96, .18); }
+
+/* cover grows a little when its row is hovered */
+.cover { transition: transform .2s; }
+.list li:hover .cover { transform: scale(1.06); }
+
+/* icon buttons (heart, delete) and the paperclip */
+button.ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, .1);
+  border-color: var(--accent);
+}
+.attach { transition: color .15s, border-color .15s, background .15s; }
+.attach:hover { background: rgba(255, 255, 255, .1); border-color: var(--accent); }
+
+/* play buttons and the player bar controls */
+.play, .icon-btn { transition: transform .15s, filter .15s; }
+.play:hover:not(:disabled), .icon-btn:hover:not(:disabled) { transform: scale(1.12); }
+
+/* sliders get a brighter thumb feel */
+input[type="range"] { cursor: pointer; }
+input[type="range"]:hover { filter: brightness(1.2); }
+
+/* ===== Logo hover animation ===== */
+.logo {
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), filter .3s;
+}
+.logo:hover {
+  transform: rotate(-6deg) scale(1.12);
+  filter: drop-shadow(0 8px 22px rgba(30, 215, 96, .75));
+}
+
+/* the 4 bars (every rect except the green background) dance like an equalizer */
+.logo rect:not(:first-child) {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+.logo:hover rect:nth-child(2) { animation: eqUp   .7s ease-in-out infinite; }
+.logo:hover rect:nth-child(3) { animation: eqDown .5s ease-in-out infinite .1s; }
+.logo:hover rect:nth-child(4) { animation: eqDown .6s ease-in-out infinite .2s; }
+.logo:hover rect:nth-child(5) { animation: eqUp   .45s ease-in-out infinite .05s; }
+
+@keyframes eqUp   { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.6); } }
+@keyframes eqDown { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.4); } }
+
+/* ===== DxVibe letter wave on hover ===== */
+.wordmark {
+  display: flex;
+  width: fit-content;
+  cursor: pointer;
+  background: none;
+  color: inherit;
+}
+.wordmark span {
+  display: inline-block;
+  /* each letter shows its own slice of the green gradient, so the word still looks like one gradient */
+  background: linear-gradient(90deg, var(--accent), #9dffc4) no-repeat;
+  background-size: 5.5em 100%;
+  background-position: calc(var(--i) * -0.9em) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.wordmark:hover span {
+  animation: letterWave .6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * .07s);
+}
+@keyframes letterWave {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-8px) scale(1.15); }
+}
+
+/* ===== Consistent row action buttons (heart, audio, delete) ===== */
+.list .sq,
+.list .attach {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .06);
+  color: var(--muted);
+  transition: background .15s, color .15s, transform .15s;
+}
+.list .sq:hover:not(:disabled),
+.list .attach:hover {
+  background: rgba(255, 255, 255, .14);
+  color: var(--ink);
+  border: 0;
+  transform: scale(1.1);
+}
+
+/* heart: only the icon turns red when favourited, no border */
+.list button.ghost[aria-pressed="true"] {
+  color: var(--danger);
+  border: 0;
+  background: rgba(255, 92, 108, .14);
+}
+
+/* audio button: green icon when the song has audio, no border */
+.list .attach.has {
+  color: var(--accent);
+  border: 0;
+  background: rgba(30, 215, 96, .14);
+}
+
+/* delete turns red on hover, so it reads as the dangerous one */
+.list .sq[aria-label^="Delete"]:hover:not(:disabled) {
+  color: var(--danger);
+  background: rgba(255, 92, 108, .16);
+}
+
+/* ===== Confirm dialog ===== */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center; padding: 16px;
+  background: rgba(0, 0, 0, .65);
+  backdrop-filter: blur(4px);
+  animation: fadeIn .15s ease;
+}
+.modal {
+  width: min(400px, 100%);
+  padding: 22px;
+  background: linear-gradient(180deg, #1c1c1c, #141414);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .7);
+  animation: popIn .18s cubic-bezier(.34, 1.56, .64, 1);
+}
+.modal h2 { font-size: 1.15rem; margin: 0 0 8px; }
+.modal .muted { font-size: .95rem; line-height: 1.5; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+button.danger { background: var(--accent); color: #000; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { opacity: 0; transform: scale(.92) translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* "Favourites only": only the checkbox and its text are clickable */
+.check {
+  justify-self: start;
+  width: fit-content;
+  cursor: pointer;
+}
